@@ -66,17 +66,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: jensvog/pythonanywhere-webapp-reload-action@v1
+    - name: Re-Deploy PythonAnywhere Web App
+      uses: umuttopalak/pythonanywhere-deploy-action@v1.1.2
       with:
         host: 'www.pythonanywhere.com'
         username: ${{ secrets.PA_USERNAME }}
-        api-token: ${{ secrets.PA_API_TOKEN }}
-        domain-name: ${{ secrets.PA_DOMAIN_NAME }}
-
-#    - name: Re-Deploy PythonAnywhere Web App
-#      uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
-#      with:
-#        host: 'www.pythonanywhere.com'
-#        username: ${{ secrets.PA_USERNAME }}
-#        api_token: ${{ secrets.PA_API_TOKEN }}
-#        domain_name: ${{ secrets.PA_DOMAIN_NAME }}
+        api_token: ${{ secrets.PA_API_TOKEN }}
+        domain_name: ${{ secrets.PA_DOMAIN_NAME }}
