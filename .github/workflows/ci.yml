@@ -71,7 +71,7 @@ jobs:
         host: 'www.pythonanywhere.com'
         username: ${{ secrets.PA_USERNAME }}
         api-token: ${{ secrets.PA_API_TOKEN }}
-        domain_name: ${{ secrets.PA_DOMAIN_NAME }}
+        domain-name: ${{ secrets.PA_DOMAIN_NAME }}
 
 #    - name: Re-Deploy PythonAnywhere Web App
 #      uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
