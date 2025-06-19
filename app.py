@@ -11,7 +11,7 @@ def index():
 
 
 def greet(name):
-    return f"Howsit, {name}!"
+    return f"Howst, {name}!"
 
 
 def add_one(x):
