@@ -59,9 +59,9 @@ jobs:
 
     - name: Send Slack notification
       if: always() # Run even if previous steps fail
-      uses: slackapi/slack-github-action@v1.27.0
+      uses: slackapi/slack-github-action@v2.1.0
       with:
-        slack-bot-token: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         channel-id: 'testing'
         text: |
           *Workflow Status*: ${{ job.status }}
