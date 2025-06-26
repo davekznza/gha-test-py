@@ -57,6 +57,22 @@ jobs:
     - name: Run tests
       run: pytest -v --color=yes --code-highlight=yes
 
+    - name: Send Slack notification
+      if: always() # Run even if previous steps fail
+      uses: slackapi/slack-github-action@v1.27.0
+      with:
+        slack-bot-token: ${{ secrets.SLACK_WEBHOOK_URL }}
+        channel-id: 'testing'
+        text: |
+          *Workflow Status*: ${{ job.status }}
+          *Repository*: ${{ github.repository }}
+          *Branch*: ${{ github.ref_name }}
+          *Event*: ${{ github.event_name }}
+          *Commit*: <${{ github.event.head_commit.url }}|${{ github.sha }}>
+          *Logs*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs>
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
   deploy:
 
     runs-on: ubuntu-latest
