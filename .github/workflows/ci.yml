@@ -62,16 +62,9 @@ jobs:
       uses: slackapi/slack-github-action@v2.1.0
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-        channel-id: 'testing'
-        text: |
-          *Workflow Status*: ${{ job.status }}
-          *Repository*: ${{ github.repository }}
-          *Branch*: ${{ github.ref_name }}
-          *Event*: ${{ github.event_name }}
-          *Commit*: <${{ github.event.head_commit.url }}|${{ github.sha }}>
-          *Logs*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs>
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          text: "testing"
 
   deploy:
 
