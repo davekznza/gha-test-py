@@ -104,4 +104,4 @@ jobs:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload: |
-          text: "*Deployment Status*: ${{ job.status }}\n*Repository*: ${{ github.repository }}\n*Site URL*: https://https://davekznza.pythonanywhere.com/\n*Commit*: <${{ github.event.head_commit.url }}|${{ github.sha }}>\n*Logs*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs>"
+          text: "*Deployment Status*: ${{ job.status }}\n*Repository*: ${{ github.repository }}\n*Site URL*: https://davekznza.pythonanywhere.com/\n*Commit*: <${{ github.event.head_commit.url }}|${{ github.sha }}>\n*Logs*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs>"
