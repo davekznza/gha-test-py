@@ -57,17 +57,8 @@ jobs:
     - name: Run tests
       run: pytest -v --color=yes --code-highlight=yes
 
-#    - name: Send Slack notification
-#      if: always() # Run even if previous steps fail
-#      uses: slackapi/slack-github-action@v2.1.0
-#      with:
-#        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-#        webhook-type: incoming-webhook
-#        payload: |
-#          text: "x"
-
-    - name: Send Slack notification
-      if: always() # Run even if previous steps fail
+    - name: Send Slack notification on failure
+      if: failure() # only run if this job fails
       uses: slackapi/slack-github-action@v2.1.0
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -98,7 +89,7 @@ jobs:
         domain_name: ${{ secrets.PA_DOMAIN_NAME }}
 
     - name: Send deploy notification
-      if: always() 
+      if: always() # run even if previous steps fail
       uses: slackapi/slack-github-action@v2.1.0
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
