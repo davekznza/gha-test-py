@@ -57,20 +57,12 @@ jobs:
     - name: Run tests
       run: pytest -v --color=yes --code-highlight=yes
 
-#    - name: Send Slack notification
-#      if: always() # Run even if previous steps fail
-#      uses: slackapi/slack-github-action@v2.1.0
-#      with:
-#        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-#        webhook-type: incoming-webhook
-#        payload: |
-#          text: "x"
-
-    - name: Post a message in a channel
+    - name: Send Slack notification
+      if: always() # Run even if previous steps fail
       uses: slackapi/slack-github-action@v2.1.0
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-        webhook-type: incoming-webhook
+        webhook-type: incoming-webhook
         payload: |
           text: "*GitHub Action build result*: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
           blocks:
