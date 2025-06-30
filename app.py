@@ -13,7 +13,6 @@ def index():
 def greet(name):
     return f"Howsit, {name}!"
 
-d
 
 def add_one(x):
     return x + 1
