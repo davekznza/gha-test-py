@@ -102,7 +102,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*:rocket: Deployment Triggered* (${{ job.status }})"
+                  "text": "*:rocket: Deployment Triggered* .. ${{ job.status }}!"
                 }
               },
               {
@@ -118,19 +118,11 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Commit*\n<${{ github.event.head_commit.url }}|${{ env.SHORT_SHA }}>"
+                    "text": "*Author & Commit*\n${{ github.event.head_commit.author.name }} (<${{ github.event.head_commit.url }}|${{ env.SHORT_SHA }}>)"
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Author*\n${{ github.event.head_commit.author.name }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Workflow / Job / Status*\n`${{ github.workflow }}` / `${{ github.job }}` / `${{ job.status }}`"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Event Name*\n`${{ github.event_name }}`"
+                    "text": "*Event / Workflow / Job / Status*\n`${{ github.event_name }}` / `${{ github.workflow }}` / `${{ github.job }}` / `${{ job.status }}`"
                   },
                   {
                     "type": "mrkdwn",
