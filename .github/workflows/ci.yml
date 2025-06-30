@@ -118,7 +118,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Author & Commit*\n${{ github.event.head_commit.author.name }} (<${{ github.event.head_commit.url }}|${{ env.SHORT_SHA }}>)"
+                    "text": "*Build Logs & Time*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs> (took `${{ steps.calculate_duration.outputs.duration }}` sec)"
                   },
                   {
                     "type": "mrkdwn",
@@ -126,7 +126,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Build Logs & Time*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs> (took `${{ steps.calculate_duration.outputs.duration }}` sec)"
+                    "text": "*Author & Commit*\n${{ github.event.head_commit.author.name }} (<${{ github.event.head_commit.url }}|${{ env.SHORT_SHA }}>)"
                   },
                   {
                     "type": "mrkdwn",
