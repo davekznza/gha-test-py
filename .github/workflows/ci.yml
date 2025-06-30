@@ -3,6 +3,10 @@ name: CI
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '.gitignore'
+      - 'docs/**'
+      - 'README.md'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
