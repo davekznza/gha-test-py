@@ -102,12 +102,16 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*:white_check_mark: Succeeded GitHub Actions*"
+                  "text": "*:rocket: Deployment Triggered*"
                 }
               },
               {
                 "type": "section",
-                "fields": [
+                "fields": [                   
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Site URL*\n<https://davekznza.pythonanywhere.com>"
+                  },                  
                   {
                     "type": "mrkdwn",
                     "text": "*Repo*\n<https://github.com/${{ github.repository }}|${{ github.repository }}>"
@@ -122,7 +126,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Job*\n`${{ github.job }}`"
+                    "text": "*Job & Status*\n`${{ github.job }}` (`${{ job.status }}`)"
                   },
                   {
                     "type": "mrkdwn",
