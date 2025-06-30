@@ -83,7 +83,6 @@ jobs:
         end_time=$(date +%s)
         duration=$((end_time - $BUILD_START_TIME))
         echo "duration=$duration" >> $GITHUB_ENV
-        echo "::set-output name=duration::$duration"
 
     - name: Get short commit hash
       id: short_commit
