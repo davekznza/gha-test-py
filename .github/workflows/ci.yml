@@ -102,7 +102,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*:rocket: Deployment Triggered*"
+                  "text": "*:rocket: Deployment Triggered* (${{ job.status }})"
                 }
               },
               {
@@ -126,7 +126,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Job & Status*\n`${{ github.job }}` (`${{ job.status }}`)"
+                    "text": "*Workflow / Job / Status*\n`${{ github.workflow }}` / `${{ github.job }}` / `${{ job.status }}`"
                   },
                   {
                     "type": "mrkdwn",
@@ -134,15 +134,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Workflow*\n`${{ github.workflow }}`"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Build Logs*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs>"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Took*\n`${{ steps.calculate_duration.outputs.duration }} sec`"
+                    "text": "*Build Logs & Time*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs> (took `${{ steps.calculate_duration.outputs.duration }}` sec)"
                   },
                   {
                     "type": "mrkdwn",
