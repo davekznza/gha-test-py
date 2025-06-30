@@ -59,7 +59,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [lint, test] # Only deploy if lint and test jobs pass
-    if: ${{ !env.ACT && github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Only deploy on push to main .. and skip if locally run by act
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Only deploy on push to main .. and skip if locally run by act
 
     steps:
     - uses: actions/checkout@v4
