@@ -10,8 +10,8 @@ on:
     - cron: '0 0 * * SUN'
 
 jobs:
+  
   lint:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,7 +29,6 @@ jobs:
     - run: flake8 -v --color=always .
 
   test:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -57,25 +56,10 @@ jobs:
     - name: Run tests
       run: pytest -v --color=yes --code-highlight=yes
 
-    - name: Send Slack notification on failure
-      if: failure() # only run if this job fails
-      uses: slackapi/slack-github-action@v2.1.0
-      with:
-        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-        webhook-type: incoming-webhook
-        payload: |
-          text: "*GitHub Action build result*: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-          blocks:
-            - type: "section"
-              text:
-                type: "mrkdwn"
-                text: "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-
   deploy:
-
     runs-on: ubuntu-latest
-    needs: test # Only deploy if tests pass
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Only deploy on push to main
+    needs: [lint, test] # Only deploy if lint and test jobs pass
+    if: ${{ !env.ACT }} && github.event_name == 'push' && github.ref == 'refs/heads/main' # Only deploy on push to main .. and skip if locally run by act
 
     steps:
     - uses: actions/checkout@v4
@@ -88,8 +72,8 @@ jobs:
         api_token: ${{ secrets.PA_API_TOKEN }}
         domain_name: ${{ secrets.PA_DOMAIN_NAME }}
 
-    - name: Send deploy notification
-      if: always() # run even if previous steps fail
+    - name: Send deployment notification to slack
+      if: always() && ${{ !env.ACT }} # run even if previous steps fail .. and skip if run by act locally
       uses: slackapi/slack-github-action@v2.1.0
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
