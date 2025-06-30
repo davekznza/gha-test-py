@@ -10,55 +10,48 @@ on:
     - cron: '0 0 * * SUN'
 
 jobs:
+  build:
 
-  lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ['3.13']
 
     steps:
-    - uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v5
+    - name: Checkout code          
+      uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-
-    - run: pip install flake8
-
-    - run: flake8 -v --color=always .
-
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.13']
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
     - name: Cache pip
       uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: ${{ runner.os }}-pip-
-
+        restore-keys: ${{ runner.os }}-pip-        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Run tests
-      run: pytest -v --color=yes --code-highlight=yes
+        pip install flake8 pylint
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Lint with flake8 
+      run: |
+        flake8 -v --color=always .
+        # stop the build if there are Python syntax errors or undefined names
+        # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        # flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics         
+    - name: Lint with pylint
+      run: |
+        pylint $(git ls-files '*.py')      
+    - name: Run tests with pytest
+      run: |
+        pytest -v --color=yes --code-highlight=yes      
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [lint, test] # Only deploy if lint and test jobs pass
+    needs: [build] # Only deploy if build job passes
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Only deploy on push to main .. and skip if locally run by act
 
     steps:
