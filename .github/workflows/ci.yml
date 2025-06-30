@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: '0 0 * * SUN'
 
+env:
+  DEPLOY_SITE_URL: ${{ secrets.DEPLOY_SITE_URL }}
+
 jobs:
   build:
 
@@ -103,7 +106,7 @@ jobs:
                 "fields": [                   
                   {
                     "type": "mrkdwn",
-                    "text": "*Site URL*\n<https://davekznza.pythonanywhere.com>"
+                    "text": "*Site URL*\n<${{ secrets.DEPLOY_SITE_URL }}"
                   },                  
                   {
                     "type": "mrkdwn",
