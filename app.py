@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return '<h1>Welcome to gha-test-py!</h1>'
+    return '<h1>Welcome to gha-test-py! test</h1>'
 
 
 def greet(name):
